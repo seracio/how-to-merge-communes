@@ -40,3 +40,53 @@ Le nouveau fichier devrait logiquement être plus léger :
 gzip -c communes-metropole.geojson.json | wc -c 
 gzip -c communes-metropole-fusion.geojson.json | wc -c
 ```
+
+L'algorithme est trivial ; on regroupe d'abord les communes suivant le nouveau code INSEE :
+
+```javascript
+_.groupBy((feature: Object) => {
+      const
+        { INSEE_COM: id } = feature.properties,
+        isNewCommune: boolean = _.has(id, mergesByNewKey),
+        isOldCommune: boolean = _.has(id, mergesByOldKey);
+      // if is new commune
+      if (isNewCommune) {
+        return id;
+      }
+      // if is old commune
+      if (isOldCommune) {
+        return mergesByOldKey[id].DepComN
+      }
+      // else => return itself
+      return id;
+    })
+```
+
+Puis l'on utilise `topojson` pour opérer la fusion : 
+
+```javascript
+mapValuesWithKey((features, newId) => {
+      // trivial case
+      if (features.length === 1) {
+        return _.first(features);
+      }
+      // merge o/
+      console.log(newId);
+      const
+        topology = topojson.topology(features),
+        geometry = topojson.merge(topology, _.values(topology.objects));
+      return {
+        type: 'Feature',
+        geometry,
+        properties: {
+          INSEE_COM: newId,
+          CODE_DEPT: newId.slice(0,2),
+          NOM_COM: _.flow(
+            _.get(_, mergesByNewKey),
+            _.get('NomCN'),
+            _.upperCase
+          )(newId)
+        }
+      };
+    })
+```
