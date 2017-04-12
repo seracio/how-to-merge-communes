@@ -3,7 +3,7 @@
 Le but de ce projet est de montrer comment générer un geojson à partir de : 
   
 * une liste de fusions de communes de l'année en cours 
-* un fichier GeoJSON du début de l'année en cours ()ne contenant donc pas les dernières fusions)  
+* un fichier GeoJSON du début de l'année en cours (ne contenant donc pas les dernières fusions)  
 
 ## Récupération des shape files sur le site de l'IGN
 
