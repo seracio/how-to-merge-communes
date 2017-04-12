@@ -1,0 +1,26 @@
+{
+  "name": "how-to-merge-communes",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/seracio/how-to-merge-communes.git",
+  "author": "nmondon <nicolasmondon@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-preset-env": "^1.3.3",
+    "babel-preset-stage-2": "^6.24.1",
+    "flow-bin": "^0.43.1"
+  },
+  "dependencies": {
+    "d3-dsv": "^1.0.5",
+    "filendir": "^1.0.0",
+    "lodash": "^4.17.4",
+    "topojson": "^3.0.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/babel-node src/index.js"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "transform-function-bind",
+    "transform-flow-strip-types"
+  ],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "stage-2"
+  ]
+}
